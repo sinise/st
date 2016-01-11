@@ -1,5 +1,4 @@
 #!/bin/bash
 cd ~/st
 sudo docker build -t seeeb/streesmind .
-
-docker run --name stresmind -d -e VIRTUAL_HOST=stress.lapela.dk -e VIRTUAL_SSL_HOST=stress.lapela.dk -v ~/st:/usr/src/app
+docker run --name stresmind -d -p 80:3000 seeeb/stressmind
