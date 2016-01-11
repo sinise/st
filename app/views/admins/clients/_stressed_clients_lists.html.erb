@@ -1,0 +1,43 @@
+<table class="table table-striped table-tight">
+	<thead>
+		<tr>
+			<th>Navn</th>
+			<th>Gender</th>
+			<th>Email</th>
+			<th>Section</th>
+			<th>StressTest result</th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @stressed_clients.each do |c| %>
+			<tr>
+				<td><%= c.full_name %></td>
+				<td><%= c.gender %></td>
+				<td><%= c.email %></td>
+
+				<td><%= c.has_section? ? c.section.name : "" %></td>
+
+				<% stress_test = c.latest_stress_test %>
+				<% if stress_test.test_result == "high_stress_high_env" %>
+					<% label = "label-danger" %>
+				<% elsif stress_test.test_result == "high_stress_low_env"%>
+					<% label = "label-warning" %>
+				<% else %>
+					<% label = "label-success" %>
+				<% end %>
+
+				<td><span class="label <%= label %>"><%= stress_test.test_result %></span></td>
+
+				<%= form_tag('/therapists/assign/' << c._id) do |f| %>
+	        <td>
+	  	      <%= select_tag :therapist_id, options_for_select(@therapists.map{ |t| [t.full_name, t._id] }), {}%>
+	  		  </td>
+	  	    <td><%= submit_tag "Assign therapist", :class => "btn btn-sm btn-primary" %></td>
+	    	<% end %>
+			</tr>
+		<% end %>
+	</tbody>
+ </table>

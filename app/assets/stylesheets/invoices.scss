@@ -1,0 +1,26 @@
+.invoice {
+  .invoice-data{
+    display:none;
+    border:1px solid #27AE60;
+    margin-bottom: 15px;
+    td{
+      text-align:center;
+    }
+  }
+  .invoice-data.open{
+    display:block;
+  }
+  .invoice-header {
+    cursor:pointer;
+    ul{
+      overflow:hidden;
+      display:block;
+      background:#27AE60;
+      list-style:none;
+      li{
+        color:#fff;
+        float:left;
+      }
+    }
+  }
+}

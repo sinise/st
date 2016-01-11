@@ -1,0 +1,102 @@
+<div class="page-header">
+	<h1>ABC opgave</h1>
+</div>
+
+<div class="well well-tight">
+	<h3>Opgavebeskrivelse</h3>
+	<p>
+		Opgaven er, at du én gang om dagen, tænker de sidste 24 timer igennem. Herefter vælger du en helt konkret situation, hvor du oplever, at du blev særligt fanget af stressen. Dvs. som du i særlig grad oplevede som belastende, hvor du blev bekymret, urolig, fortravlet, irriteret/frustreret eller mistede overblikket. 
+	</p>
+	<p>
+		Denne situation beskriver du i A-kolonnen, hvorefter du i B-kolonnen noterer de tanker og billeder ned, som du kan huske gik igennem dit hoved lige i situationen. Ofte vil tankerne være i form af bestemte vendinger, som f.eks. ”det kan ikke være meningen, at….” eller ”det her lykkedes aldrig” eller måske ”jeg bliver nødt til …. , fordi ….”  I C-kolonnen skriver du ned, hvordan du havde det i situationen, og hvordan du håndterede den.
+	</p>
+	<p>Du skal skrive om en situation hver dag.</p>
+</div>
+
+
+<%= form_for(@assignment, :url => '/assignments/' << @assignment._id << '/save_type1/', :method => :put) do |f| %>
+
+	<div class="row">
+		<div class="col-md-4">
+
+			<h4>A. Aktivererende situation</h4>
+			<!--<h4>A. Aktivererende situation / hvad var triggeren?</h4>-->
+			<!--<h6>Situation</h6>-->
+
+			<%= f.label :q1, 'Hvad skete umiddelbart før jeg begyndte at få det på den måde?', :class => "form-label-tight" %>
+			<%= f.text_area :q1,  :value => @assignment.result['q1'], :class => "form-control"  %>
+
+			<%= f.label :q2, 'Hvad lavede jeg?', :class => "form-label-tight" %>
+			<%= f.text_area :q2,  :value => @assignment.result['q2'], :class => "form-control"  %>
+
+			<%= f.label :q3, 'Hvem var jeg sammen med?', :class => "form-label-tight" %>
+			<%= f.text_area :q3,  :value => @assignment.result['q3'], :class => "form-control"  %>
+
+			<%= f.label :q4, 'Hvor var jeg?', :class => "form-label-tight" %>
+			<%= f.text_area :q4,  :value => @assignment.result['q4'], :class => "form-control"  %>
+
+			<%= f.label :q5, 'Hvornår på dagen var det?', :class => "form-label-tight" %>
+			<%= f.text_area :q5,  :value => @assignment.result['q5'], :class => "form-control"  %>
+
+		</div>
+		<div class="col-md-4">
+			<h4>B. Overbevisning</h4>
+				<!--<h6>Tanker eller billeder</h6>
+				<%= f.text_area :q20,  :value => @assignment.result['q20'], :class => "form-control" %>
+			-->
+
+			<%= f.label :q20, 'Hvilke tanker gik igennem dit hoved?', :class => "form-label-tight" %>
+			<%= f.text_area :q20,  :value => @assignment.result['q20'], :class => "form-control" %>
+
+			<%= f.label :q21, 'Hvilke tanker fik du på det tidspunkt?', :class => "form-label-tight" %>
+			<%= f.text_area :q21,  :value => @assignment.result['q21'], :class => "form-control" %>
+
+
+		</div>
+		<div class="col-md-4">
+			<h4>C. Konsekvens</h4>
+			<!--<h6>Følelser</h6>-->
+
+
+			<%= f.label :q30, 'Beskriv din dominerende følelse med eet ord', :class => "form-label-tight" %>
+			<%= f.text_area :q30,  :value => @assignment.result['q30'], :class => "form-control" %>
+
+			<%= f.label :q31, 'Giv følelsen et tal mellem 1 og 10, hvor tallet fortæller hvor meget følelsen fyldte', :class => "form-label-tight" %>
+			<%= f.text_area :q31,  :value => @assignment.result['q31'], :class => "form-control" %>
+
+			<!--<h6>Fysisk oplevelse:</h6>-->
+
+			<%= f.label :q40, 'Hvilken oplevelse havde jeg i kroppen?', :class => "form-label-tight" %>
+			<%= f.text_area :q40,  :value => @assignment.result['q40'], :class => "form-control" %>
+
+
+			<%= f.label :q41, 'Hvor sad følelsen henne i kroppen?', :class => "form-label-tight" %>
+			<%= f.text_area :q41,  :value => @assignment.result['q41'], :class => "form-control" %>
+
+			<!--<h6>Adfærd og tilskyndelse</h6>-->
+
+			<%= f.label :q50, 'Hvad havde jeg lyst til at gøre i situationen?', :class => "form-label-tight" %>
+			<%= f.text_area :q50,  :value => @assignment.result['q50'], :class => "form-control" %>
+
+			<%= f.label :q51, 'Hvad gjorde jeg?', :class => "form-label-tight" %>
+			<%= f.text_area :q51,  :value => @assignment.result['q51'], :class => "form-control" %>
+
+		</div>
+	</div>
+
+	<div class="form-actions">
+		<%= f.submit "Gem opgave", :class => "btn btn-primary btn-lg" if current_user && !@assignment.submitted? %>
+
+		<%= link_to 'Submit', '/assignments/' << @assignment._id << '/submit', \
+				        :class => 'btn btn-primary', method: :put, \
+				        data: { confirm: 'To submit the assignment?' }  if current_user && !@assignment.submitted? %>
+	</div>
+
+	<%= f.hidden_field :version,  :value => '1.0'%>
+
+<% end %>
+
+
+		
+		
+	 

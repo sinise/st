@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-md-6">
+
+    <h1>Opdater profil</h1>
+    <!-- flash messages -->
+    <% flash.each do |key, value| %>
+      <div class="alert <%= flash_class(key) %>">
+      	<ul>
+      		<li>
+		        <% if key == :error %>
+		          <%= value.join("</li><li>").html_safe %>
+		        <% else %>
+		          <%= value %>
+		        <% end %>
+        	</li>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <%= form_for(current_user, :url => clients_profile_path(source: source), :html => { :method => :put }) do |f| %>
+      <% detail = current_user.user_detail || current_user.build_user_detail %>
+      <%= f.fields_for :user_detail, detail do |ud| %>
+        <div class="form-group">
+          <%= ud.label :first_name, 'Fornavn *' %>
+          <%= ud.text_field :first_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :last_name, 'Efternavn *' %>
+          <%= ud.text_field :last_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :gender, 'Køn' %>
+          <%= ud.select :gender, [['Mand', 'male'], ['Kvinde', 'female']], {}, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :mobile, 'Mobil tlf' %>
+          <%= ud.text_field :mobile, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :family_situation, 'Din familiesituation' %>
+          <span class="help-inline">Beskriv kort din familiesituation (er du gift/single/samboende, evt. antal børn og deres alder, søskende eller andet, der har betydning for hvordan du har det lige nu)</span>
+          <%= ud.text_area :family_situation, :class => 'form-control form-control-lg' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :job_situation, 'Din jobsituation' %>
+          <span class="help-inline">Beskriv kort din situation på dit arbejde (ganske kort hvad du laver, hvem du arbejder sammen med – eller andet, der har betydning for hvordan du har det lige nu)</span>
+          <%= ud.text_area :job_situation, :class => 'form-control form-control-lg' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :major_events, 'Betydningsfulde hændelser de sidste 3 år ' %>
+          <span class="help-inline">Skriv kort hvilke betydningsfulde hændelser, der har været i dit liv de sidste 3 år (f.eks. skilsmisse, bryllup, dødsfald i familien, forfremmelse eller fyringer eller andet, der har betydning for hvordan du har det lige nu. Du må gerne skrive i stikordsform)</span>
+          <%= ud.text_area :major_events, :class => 'form-control form-control-lg' %>
+        </div>
+        
+        <% if false %>
+	        <div class="form-group">
+	          <%= ud.label :birthday, 'Birthday' %>
+	          <div>
+		          <%= ud.date_select :birthday, :class => 'form-control' %>
+	          </div>
+	        </div>
+	      <% end %>
+
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit "Opdater profil", :class => "btn btn-lg btn-primary" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

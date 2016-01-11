@@ -1,0 +1,71 @@
+<div class="jumbotron">
+  <h1>Indledende stress screening</h1>
+  <p>Velkommen til den indledende stress screening, hvor du kan få en tilbagemelding på, i hvor høj grad du er  påvirket af ”stress” lige i øjeblikket.</p>
+
+	<p>Der vil være 30 spørgsmål, som alle handler om, hvordan du har haft det den sidste uge. Alle 30 spørgsmål skal besvares, også selvom nogle af dem måske lyder meget ens. Hvert spørgsmål handler om en helt konkret følelse, som de fleste personer kender fra deres daglige liv. Hvert spørgsmål kan besvares på en skala fra et til fem.</p>
+
+	<p>Du skal sætte kryds ud for den rubrik, som mest præcist fortæller i hvor høj grad du har haft netop den følelse i løbet af den sidste uge. For eksempel kan du sætte kryds i den sidste rubrik, hvis du havde følelsen meget ofte. Eller du kan sætte dit kryds i nr. 2 boks, hvis du kun af og til havde den følelse. Eller du kan sætte kryds i en af de øvrige bokse. </p>
+
+	<p>Når du besvarer spørgsmålene, så prøv at være så ærlig som muligt – så får du det mest præcise svar. </p>
+
+	<p>Dine svar vil blive behandlet fortroligt og vil ikke blive oplyst til andre. </p>
+
+	<p>Husk, at der er tale om dine følelser i løbet af den sidste uge.</p>
+</div>
+
+<%= form_for(@stress_test, :url => stresstest_feedback_path(company_id: @company._id) << '#stress-form', :html => {:class => 'form-horizontal new form-screening'}) do |f| %>
+		<a name="stress-form"></a>
+
+		<!-- flash messages -->
+		<% flash.each do |key, value| %>
+			<div class="alert alert-danger">
+				<%= value %>
+			</div>
+		<% end %>
+
+    <%= render partial: "users/stress_test/stress_test_questions_1.0", locals: {:f => f} %>    
+
+    <%= hidden_field_tag :uuid, @uuid %>
+    
+    <div class="form-actions">
+    	<span class="error-msg pull-left">Not all questions are answered!</span>
+        <%= f.submit "Se dit resultat af testet", :class => "btn btn-lg btn-primary" %>
+    </div>
+
+<% end %>
+
+
+<script>
+var ready = function() {
+	$('.table-screening').on('click', 'td', function(e) {
+			$(this).find('input:radio').prop('checked', true);
+
+			// also run on page load
+
+			// only if the click checked a radio button
+			$(this).parent().addClass('row-question-answered'); 
+	});
+
+	$(".form-actions").click(function( event ) {
+	  	event.preventDefault();
+	  	checkForm();
+	});
+}
+
+function checkForm(){
+	var rows = $("form tr");
+	var items = $(rows).find(":radio:checked");
+	if(items.length >= rows.length-1){
+		$('.error-msg').hide();
+		$('form').submit();
+	} else {
+		rows.removeClass('error');
+		var rowsNotSeleted = $("tbody tr:not(:has('input:radio:checked'))");
+		rowsNotSeleted.addClass('error');
+		$('.error-msg').show();
+	}
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+</script>

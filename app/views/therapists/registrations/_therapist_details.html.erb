@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-6">
+
+    <h1>Opdater profil</h1>
+    <!-- flash messages -->
+    <% flash.each do |key, value| %>
+      <div class="alert <%= flash_class(key) %>">
+        <% if key == :error %>
+          <%= ("<li>" + value.join("</li><li>") + "</li>").html_safe %>
+        <% else %>
+          <%= value %>
+        <% end %>
+      </div>
+    <% end %> 
+
+    <%= form_for(current_therapist, :url => therapists_profile_path, \
+                 :html => { :method => :put }) do |f| %>
+
+      <% detail = current_therapist.therapist_detail || current_therapist.build_therapist_detail %>
+      <%= f.fields_for :therapist_detail, detail do |td| %>
+        <div class="form-group">
+          <%= td.label :first_name, 'Fornavn' %>
+          <%= td.text_field :first_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= td.label :last_name, 'Efternavn' %>
+          <%= td.text_field :last_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= td.label :gender, 'Køn' %>
+          <%= td.select :gender, [['Mand', 'male'], ['Kvinde', 'female']], {}, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= td.label :mobile, 'Mobil tlf' %>
+          <%= td.text_field :mobile, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= td.label :about_me, 'Om mig' %>
+          <%= td.text_area :about_me, :required => '1', :class => 'form-control' %>
+        </div>
+
+        <% if false %>
+	        <div class="form-group">
+	          <%= td.label :birthday, 'Birthday' %>
+	          <div>
+		          <%= td.date_select :birthday, :class => 'form-control' %>
+	          </div>
+	        </div>
+	      <% end %>
+
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit "Opdater profil", :class => "btn btn-lg btn-primary" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

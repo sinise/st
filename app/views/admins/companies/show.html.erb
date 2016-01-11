@@ -1,0 +1,87 @@
+<div class="page-header">
+	<h1>Virksomhed: <%= @company.name %></h1>
+</div>
+
+
+<div class="row">
+	<div class="col-md-4">
+		
+		<% if (notice) %>
+			<div class="alert alert-info"><%= notice %></div>
+		<% end %>
+
+		<p>
+		  <strong>Navn:</strong><br>
+		  <%= @company.name %>
+		</p>
+
+		<p>
+		  <strong>Kode:</strong><br>
+		  <%= @company.code %>
+		</p>
+
+		<p>
+		  <strong>Url:</strong><br>
+		  <%= @company.url %>
+		</p>
+
+		<p>
+		  <strong>Telefon:</strong><br>
+		  <%= @company.phone %>
+		</p>
+
+		<p>
+		  <strong>Email:</strong><br>
+		  <%= @company.email %>
+		</p>
+
+		<p>
+		  <strong>Hourly rate:</strong><br>
+		  <%= @company.session_hourly_rate %>
+		</p>
+
+		<p>
+		  <strong>Currency:</strong><br>
+		  <%= @company.currency %>
+		</p>
+
+		<div class="form-actions">
+			<%= link_to 'Ret virksomhed', edit_admins_company_path(@company), :class => "btn btn-primary" %>
+			<%= link_to 'Tilbage', admins_companies_path, :class => "btn btn-lnk pull-left" %>
+		</div>
+
+	</div>
+
+	<div class="col-md-8">
+		<strong>Departments:</strong><br>
+		<div class="text-right">
+			<%= link_to 'Ny department', new_admins_company_department_path(@company), :class=>'btn btn-primary' %>
+		</div>
+		<table class="table table-striped table-tight">
+		  <thead>
+		    <tr>
+		      <th>Navn</th>
+		      <th>Telefon</th>
+		      <th>Email</th>
+		      <th></th>
+		    </tr>
+		  </thead>
+
+		  <tbody>
+		    <% @company.departments.each do |dep| %>
+		      <tr>
+		        <td><%= dep.name %></td>
+		        <td><%= dep.phone %></td>
+		        <td><%= dep.email %></td>
+		        <td class="text-right">
+		        	<%= link_to 'Vis', admins_company_department_path(@company,dep), { :class=>'btn btn-sm btn-primary' } %>
+			        <%= link_to 'Ret', edit_admins_company_department_path(@company,dep), { :class=>'btn btn-sm btn-primary' } %>
+			        <%= link_to 'Slet', admins_company_department_path(@company,dep), :class=>'btn btn-sm btn-primary' , method: :delete, data: { confirm: 'Er du sikker?' } %>
+			      </td>
+		      </tr>
+		    <% end %>
+		  </tbody>
+		</table>
+	</div>
+</div>
+

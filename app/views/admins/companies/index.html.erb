@@ -1,0 +1,47 @@
+<div class="page-header">
+	<div class="row">
+		<div class="col-md-6">
+			<h1>Virksomheder</h1>
+		</div>
+		<div class="col-md-6 text-right">
+			<%= link_to 'Ny virksomhed', new_admins_company_path, :class=>'btn btn-primary' %>
+		</div>
+	</div>
+</div>
+
+
+
+<table class="table table-striped table-tight">
+  <thead>
+    <tr>
+      <th>Navn</th>
+      <th>Kode</th>
+      <th>Url</th>
+      <th>Telefon</th>
+      <th>Email</th>
+      <th>Hourly rate</th>
+      <th>Currency</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @companies.each do |company| %>
+      <tr>
+        <td><%= company.name %></td>
+        <td><%= company.code %></td>
+        <td><%= company.url %></td>
+        <td><%= company.phone %></td>
+        <td><%= company.email %></td>
+        <td><%= company.session_hourly_rate %></td>
+        <td><%= company.currency %></td>
+        <td class="text-right">
+	        <%= link_to 'Vis', admins_company_path(company), { :class=>'btn btn-sm btn-primary' } %>
+	        <%= link_to 'Ret', edit_admins_company_path(company), { :class=>'btn btn-sm btn-primary' } %>
+	        <%= link_to 'Slet', admins_company_path(company), :class=>'btn btn-sm btn-primary' , method: :delete, data: { confirm: 'Er du sikker?' } %>
+	      </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

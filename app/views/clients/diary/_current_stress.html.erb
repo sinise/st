@@ -1,0 +1,87 @@
+<div class="box box-stress">
+	<h3>
+		Stressniveau
+		<span class="glyphicon glyphicon-question-sign help-trigger" title="Hjælp: Stress niveau" data-content="<p>Angiv dit stress niveau og skriv i kommentarer, hvad du lige nu er optaget af. Formålet er at opdage evt. sammenhænge og forbindelser, så du sammen med din psykolog kan sætte ind de rigtige steder.</p>"></span>
+		<small>Angiv på en skala fra 1 til 10, hvor stresset du oplever, at du er lige nu. </small>
+	</h3>
+
+	<%= f.fields_for :stress, @current_diary.stress do |st| %>
+
+		<div class="row">
+		  <div class="col-md-4">
+
+			  <h4 class="box-stress-time">Kl. 10</h4>
+			  <div class="ui-slider-wrapper">
+					<div class="ui-slider" data-stress-level="1">
+						<% (1..9).each do |i| %>
+							<div class="ui-slider-segment" style="margin-left:10%;"></div>
+						<% end %>
+					</div>
+					<div class="ui-slider-index">
+				  	<ul>
+				  		<li class="ui-slider-index-first">0</li>
+							<% (1..9).each do |i| %>
+				  			<li><%= i %></li>
+							<% end %>
+				  		<li class="ui-slider-index-last">10</li>
+				  	</ul>
+				  </div>
+			  </div>
+
+				<%= st.hidden_field :level_1, :id=>"stress_level_1" %>
+			  <%= st.text_area :level_1_comment, { :class => "form-control textarea-autoresize", :placeholder => 'Kommentar'} %>
+
+			</div>
+		  <div class="col-md-4">
+
+			  <h4 class="box-stress-time">Kl. 14</h4>
+				<div class="ui-slider-wrapper">
+					<div class="ui-slider" data-stress-level="2">
+						<% (1..9).each do |i| %>
+							<div class="ui-slider-segment" style="margin-left:10%;"></div>
+						<% end %>
+					</div>
+					<div class="ui-slider-index">
+				  	<ul>
+				  		<li class="ui-slider-index-first">0</li>
+							<% (1..9).each do |i| %>
+				  			<li><%= i %></li>
+							<% end %>
+				  		<li class="ui-slider-index-last">10</li>
+				  	</ul>
+				  </div>
+			  </div>
+
+				<%= st.hidden_field :level_2, :id=>"stress_level_2" %>
+			  <%= st.text_area :level_2_comment, { :class => "form-control textarea-autoresize", :placeholder => 'Kommentar'} %>
+
+			</div>
+		  <div class="col-md-4">
+
+			  <h4 class="box-stress-time">Kl. 18</h4>
+				<div class="ui-slider-wrapper">
+					<div class="ui-slider" data-stress-level="3">
+						<% (1..9).each do |i| %>
+							<div class="ui-slider-segment" style="margin-left:10%;"></div>
+						<% end %>
+					</div>
+					<div class="ui-slider-index">
+				  	<ul>
+				  		<li class="ui-slider-index-first">0</li>
+							<% (1..9).each do |i| %>
+				  			<li><%= i %></li>
+							<% end %>
+				  		<li class="ui-slider-index-last">10</li>
+				  	</ul>
+				  </div>
+			  </div>
+
+				<%= st.hidden_field :level_3, :id=>"stress_level_3" %>
+			  <%= st.text_area :level_3_comment, { :class => "form-control textarea-autoresize", :placeholder => 'Kommentar'} %>
+
+			</div>
+		</div>
+
+	<% end %>
+
+</div>

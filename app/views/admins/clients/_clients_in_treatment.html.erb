@@ -1,0 +1,37 @@
+<div class="page-header">
+	<h1>Clients in Treatment</h1>
+</div>
+
+<% clients_in_treatment = false %>
+<% @companies.each do |com| %>
+	<% @treatment_clients = com.users.in_treatment %>
+	<% if @treatment_clients.any? %>
+		<% clients_in_treatment = true %>
+  	<h4><%= com.name %></h4>
+  <% end %>
+
+	<% if com.has_departments? %>
+		<% com.departments.each do |dep| %>
+			<% @treatment_clients = dep.users.in_treatment %>
+			<% if @treatment_clients.any? %>
+				<% clients_in_treatment = true %>
+				<h4><%= dep.name %></h4>
+				<%= render "admins/clients/clients_in_treatment_lists" %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<% if @treatment_clients.any? %>
+			<%= render "admins/clients/clients_in_treatment_lists" %>
+		<% end %>
+	<% end %>
+
+<% end %>
+
+
+
+
+<% unless clients_in_treatment %>
+	<p>
+		No clients need treatment now.
+	</p>
+<% end %>

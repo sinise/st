@@ -1,0 +1,22 @@
+<h4>Journal</h4>
+
+<%= form_tag('/therapists/client/'<< @client._id << '/journal') do |f| %>
+  
+  <div class="form-group form-group-with-button">
+  	<%= text_area_tag :message, nil, :class => "form-control", :placeholder => 'Indtast tekst...', :required => '1' %>
+  	<%= submit_tag "Gem", :class => "btn btn-primary" %>
+  </div>
+
+<% end %>
+
+
+<% @client.journals.desc(:date).each do |j| %>
+	<div class="panel panel-default">
+	  <div class="panel-body">
+	  	<%= simple_format(j.message) %>
+		</div>
+		<div class="panel-footer">
+			<%= j.therapist.full_name << ', ' <<j.date.strftime("%d %B %Y kl. %H:%M") %>
+	  </div>
+	</div>
+<% end%>

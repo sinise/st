@@ -1,0 +1,42 @@
+<div class="row">
+	<div class="col-md-6">
+
+		<%= form_for(@article, :html => {:multipart => true}) do |f| %>
+		  <% if @article.errors.any? %>
+		    <div class="alert alert-danger">
+		      <ul>
+			      <% @article.errors.full_messages.each do |msg| %>
+			        <li><%= msg %></li>
+			      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+
+		  <div class="form-group">
+		    <%= f.label :name, 'Titel' %>
+		    <%= f.text_field :name, :class => "form-control", :autofocus => true %>
+		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :abstract, 'Uddrag' %>
+		    <%= f.text_area :abstract, :class => "form-control", :rows => "10" %>
+		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :url, 'Url' %>
+		    <%= f.text_field :url, :disabled =>true, :class => "form-control" %>
+		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :label, 'File' %>
+     		<%= file_field 'upload', 'datafile', :class => "form-control" %>
+   		</div>
+
+			<div class="form-actions">
+				<%= f.submit 'Gem', :class => "btn btn-lg btn-primary" %>
+				<%= link_to 'Tilbage', admins_articles_path, :class => "btn btn-lnk pull-left" %>
+			</div>
+		<% end %>
+
+	</div>
+</div>

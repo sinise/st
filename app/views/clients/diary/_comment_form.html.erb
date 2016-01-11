@@ -1,0 +1,13 @@
+<div class="box">
+	<h3>
+		Yderligere kommentarer
+		<span class="glyphicon glyphicon-question-sign help-trigger" title="Hjælp: Kommentarer" data-content="<p>Din dagbog kan hjælpe dig med at opdage sammenhænge mellem hvad du laver / er optaget af, og hvordan du reagerer i de enkelte situationer.</p><p>Sørg for at skrive så kort og klart som muligt. </p><p>Din psykolog vil løbende læse dine noteringer og komme med feedback til dig.</p>"></span>
+	</h3>
+
+	<%= form_tag('/diaries/'<< @current_diary._id << '/comment?date=' << @current_diary.date.to_s) do |c| %>
+	  <div class="form-group form-group-with-button">
+	  	<%= text_area_tag :comment, nil, :class => "form-control", :placeholder => '', :required => '1' %>
+	  	<%= submit_tag "Gem", :class => "btn btn-primary" %>
+	  </div>
+	<% end %>
+</div>

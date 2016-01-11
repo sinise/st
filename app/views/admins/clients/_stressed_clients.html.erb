@@ -1,0 +1,37 @@
+<div class="page-header">
+	<h1>Assign Clients to therapist</h1>
+</div>
+
+<% has_new_clients = false %>
+<% @companies.each do |com| %>
+	<% @stressed_clients = com.users.require_treatment %>
+	<% if @stressed_clients.any? %>
+		<% has_new_clients = true %>
+  	<h4><%= com.name %></h4>
+  <% end %>
+
+	<% if com.has_departments? %>
+		<% com.departments.each do |dep| %>
+			<% @stressed_clients = dep.users.require_treatment %>
+			<% if @stressed_clients.any? %>
+				<% has_new_clients = true %>
+				<h4><%= dep.name %></h4>
+				<%= render "admins/clients/stressed_clients_lists" %>
+			<% end %>
+		<% end %>
+	<% else %>
+		<% if @stressed_clients.any? %>
+			<%= render "admins/clients/stressed_clients_lists" %>
+		<% end %>
+	<% end %>
+
+<% end %>
+
+
+
+
+<% unless has_new_clients %>
+	<p>
+		No clients need treatment now.
+	</p>
+<% end %>

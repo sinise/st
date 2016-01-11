@@ -1,0 +1,149 @@
+<div class="page-header">
+	<div class="row">
+	  <div class="col-md-4">
+			
+			<h1>Min dagbog</h1>
+
+		</div>
+	  <div class="col-md-8">
+
+			<div class="btn-group pull-right">
+				<%= link_to(clients_diaryboard_path, { :class => "btn btn-primary active" }) do %>
+					<span class="glyphicon glyphicon-calendar"></span>
+					Dags dato
+				<% end %>
+
+				<%= link_to(diaries_path, { :class => "btn btn-primary" }) do %>
+					<span class="glyphicon glyphicon-list"></span>
+					Sidste 7 dage
+				<% end %>
+			</div>
+
+			<ul class="pager pull-right">
+				<li class="previous">
+					<%= link_to('/clients/date/' << (@current_diary.date - 1).to_s, { :title => "En dag tilbage" }) do %>
+					 <i class="fui-arrow-left"></i>
+					<% end %>
+				</li>
+				
+				<li class="current"><%= I18n.l @current_diary.date %></li>
+
+				<li class="next">
+					<%= link_to('/clients/date/' << (@current_diary.date + 1).to_s, { :title => "En dag frem" }) do %>
+					 <i class="fui-arrow-right"></i>
+					<% end %>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>
+
+
+
+
+<!--
+suppress flash messages for now 
+<% flash.each do |key, value| %>
+	<div class="alert <%= flash_class(key) %>">
+		<%= value %>
+	</div>
+<% end %>
+-->
+
+
+
+<div class="row">
+	<div class="col-md-3">
+
+		<%= render "clients/diary/calendar" %>
+
+
+	</div>
+	<div class="col-md-8 col-md-offset-1">
+
+		<%= render "clients/diary/current_diary" %>
+
+	</div>
+</div>
+
+
+
+<script src="/assets/parsley.min.js"></script>
+<script>
+var ready = function() {
+	// validation
+	$('form:first').parsley({
+		showErrors: true
+	});
+
+
+	// help popovers
+	$('.help-trigger').popover({
+		trigger: 'hover',
+		container: 'body',
+		placement: 'top',
+		title: 'Hjælp',
+		html: true
+	});
+
+	
+	// select styling
+	$('.box select').selectpicker({style: 'btn btn-primary', menuStyle: 'dropdown-inverse' });
+	setTimeout(function(){ $('.select').css('overflow', 'visible') }, 500); // avoid flickering
+
+
+	// autosize textareas
+  $('textarea').autosize();
+
+	// placeholders
+	$("input, textarea").placeholder();
+
+	// timepicker
+	$('.timepicker').each(function(i,elm){
+	  $(elm).timepicker({
+			minTime: '00:00',
+			maxTime: '23:50',
+	  	disableTextInput: true,
+	  	step:10,
+	  	scrollDefaultTime: $(elm).data('default-time'),
+	  	timeFormat: 'H:i',
+	  	lang: {
+				mins: 'minutter',
+				hr: 'time',
+				hrs: 'timer'
+			}
+	  });
+	});
+
+
+  // sliders
+  $(".ui-slider").each(function(index, elm) {
+  	var $slider = $(elm);
+  	var level = $slider.data('stress-level');
+  	var $hidden = $('#stress_level_' + level);
+
+    $slider.slider({
+      min: 1,
+      max: 11,
+      value: 0,
+      orientation: "horizontal",
+      range: "min",
+      slide: function( event, ui ) {
+    		// store slider value
+				$hidden.val(ui.value - 1);
+      }
+    });
+
+    // set slider value
+    var indexStart = parseInt($hidden.val());
+    		indexStart = isNaN(indexStart) ? 0 : (indexStart + 1);
+		$slider.slider("value", indexStart);
+	 });
+
+  $('.ui-slider:first').find('a').focus();
+};
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+</script>

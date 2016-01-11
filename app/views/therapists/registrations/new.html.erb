@@ -1,0 +1,55 @@
+<div class="row">
+	<div class="col-md-6">
+	
+		<h2>New therapist</h2>
+
+
+		<%= form_for(resource, :as => resource_name, :url => therapist_registration_path) do |f| %>
+		  <%= devise_error_messages! %>
+
+		  <div class="form-group">
+		  	<%= f.label :email, 'Email *' %>
+		  	<%= f.email_field :email, :class => 'form-control' %>
+		  </div>
+
+		  <div class="form-group">
+		  	<%= f.label :password, 'Kodeord *' %> <span class="help-inline">(min. 8 tegn)</span>
+		  	<%= f.password_field :password, :class => 'form-control' %>
+		  </div>
+
+		  <div class="form-group">
+		  	<%= f.label :password_confirmation, 'Bekræft kodeord *' %> <span class="help-inline">(min. 8 tegn)</span>
+		  	<%= f.password_field :password_confirmation, :class => 'form-control' %>
+		  </div>
+
+		  <% detail = resource.therapist_detail || resource.build_therapist_detail %>
+		  <%= f.fields_for :therapist_detail, detail do |ud| %>
+        <div class="form-group">
+          <%= ud.label :first_name, 'Fornavn *' %>
+          <%= ud.text_field :first_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :last_name, 'Efternavn *' %>
+          <%= ud.text_field :last_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :gender, 'Køn' %>
+          <%= ud.select :gender, [['Mand', 'male'], ['Kvinde', 'female']], {}, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :mobile, 'Mobil tlf' %>
+          <%= ud.text_field :mobile, :class => 'form-control' %>
+        </div>
+
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit "Opret profil", :class => "btn btn-lg btn-primary" %>
+      </div>
+		<% end %>
+
+	</div>
+</div>

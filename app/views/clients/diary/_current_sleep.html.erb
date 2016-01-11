@@ -1,0 +1,31 @@
+<div class="box">
+	<h3>
+		Søvn
+		<span class="glyphicon glyphicon-question-sign help-trigger" title="Hjælp: Søvn" data-content="<p>Søvn har ofte en stor indflydelse på, hvordan vi har det i løbet af dagen. Derfor er det vigtigt, at du registrerer dels hvor mange timers søvn du har haft, dels hvordan søvnen har været. Søvnen angives i timer og minutter. Du kan også skrive en kort kommentar, der beskriver f.eks. årsagen til at din søvn var som den var (blev vækket af datteren / drak for meget kaffe) eller lignende.</p>"></span>
+		<small>Angiv antallet af timer:minutter, du har sovet i nat. Vælg også, hvordan din søvn har været og skriv evt. en kommentar.</small>
+	</h3>
+	<%= f.fields_for :sleep, @current_diary.sleep do |s| %>
+
+		<div class="row">
+		  <div class="col-md-4">
+
+			  <%= s.label :hours_str, 'Varighed' %>
+				<%= s.text_field :hours_str, { :class => "form-control timepicker required", :autocomplete => 'off', 'data-default-time' => '07:00'} %>
+
+		  </div>
+		  <div class="col-md-4">
+
+			  <%= s.label :quality, 'Søvnkvalitet' %>
+			  <%= s.select(:quality, options_for_select({'-- Vælg --' => '', 'Rolig' => 'rolig', 'Afbrudt' => 'afbrudt'}, \
+			  						 selected: @current_diary.sleep.quality), {}, :class=>'') %>
+
+			</div>
+		  <div class="col-md-4">
+
+				<%= s.text_area :description, { :class => "form-control textarea-autoresize", :placeholder => 'Kommentar'} %>
+
+			</div>
+		</div>
+
+	<% end %>
+</div>

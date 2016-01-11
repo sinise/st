@@ -1,0 +1,38 @@
+<div class="row">
+	<div class="col-md-6">
+
+		<h1>Admin Log ind</h1>
+
+		<!-- flash messages -->
+		<% flash.each do |key, value| %>
+			<div class="alert <%= flash_class(key) %>">
+				<%= value %>
+			</div>
+		<% end %>
+
+		<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+			<div class="form-group">
+				<label for="txt-email">Email adresse</label>
+				<%= f.email_field :email, :class => "form-control", :autofocus => true %>
+			</div>
+
+			<div class="form-group">
+				<label for="txt-password">Kodeord</label>
+				<%= f.password_field :password, :class => "form-control" %>
+			</div>
+
+			<% if devise_mapping.rememberable? -%>
+				<div class="form-group">
+					<label class="checkbox" for="checkbox1">
+						<%= f.check_box :remember_me, 'data-toggle' => 'checkbox' %> Husk mig på denne computer.
+					</label>
+				</div>
+			<% end -%>
+
+			<div class="form-actions">
+				<%= f.submit "Log ind", :class => "btn btn-lg btn-primary" %>
+			</div>
+		<% end %>
+		
+	</div>
+</div>

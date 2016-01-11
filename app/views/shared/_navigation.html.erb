@@ -1,0 +1,38 @@
+<% if user_signed_in? %>
+
+  <div class="navbar navbar-inverse">
+    <div class="container">
+    	<%= link_to('StressMind', clients_index_path, :class=>'navbar-brand') %>
+      <ul class="nav navbar-nav navbar-right">
+          <%= nav_link('Dagbog', clients_diaryboard_path) %>
+          <%= nav_link('Oversigt', clients_index_path) %>
+          <%= nav_link('Opgaver', assignments_client_index_path) %>
+          <!--%= nav_link('Artickel', clients_articles_index_path) %-->
+          <!--%= nav_link('Appointment', clients_appointments_path) %-->
+
+				<li class="dropdown">
+			    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			      <span class="glyphicon glyphicon-user"></span> Min profil <b class="caret"></b>
+			    </a>
+			    <ul class="dropdown-menu">
+						<%= nav_link('Opdater profil', edit_user_registration_path) %>
+						<li><%= link_to('Log ud', destroy_user_session_path, :method=>:delete) %></li>
+			    </ul>
+			  </li>
+      </ul>
+    </div>
+  </div>
+
+<% else %>
+  
+  <div class="navbar navbar-inverse">
+    <div class="container">
+    	<%= link_to('StressMind', root_path, :class=>'navbar-brand') %></li>
+      <ul class="nav navbar-nav pull-right">
+			  <!--%= nav_link('Screening test', stresstest_path) %-->
+        <%= nav_link('Log ind', new_user_session_path) %>
+      </ul>
+    </div>
+  </div>
+
+<% end %>

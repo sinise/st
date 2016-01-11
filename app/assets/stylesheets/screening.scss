@@ -1,0 +1,76 @@
+
+
+.jumbotron {
+	margin: 40px 0 60px; 
+	
+	h1 {
+		font-size: 1.8em;
+	}
+	p {
+		font-family: Arial; 
+		font-size:14px;
+	}
+}
+
+.form-screening {
+	.control-label {
+		text-align: left;
+	}
+}
+
+.error-msg{
+	color: red;
+	line-height: 45px;
+	display: none;
+}
+
+.table-screening {
+	margin-top: 10px;
+
+
+	thead tr th {
+		background-color: #CCE6B3; 
+		font-size:18px;
+		font-weight: 400; 
+		padding: 20px 0;
+		white-space: nowrap;
+		width: 100px;
+		
+		&.cell-question {
+			padding: 20px 10px;
+			width: auto;
+		}
+	}
+
+
+	tbody tr {
+		&.row-question-answered td {
+			background-color: #fff7be; 
+		}
+
+		td {
+			cursor: pointer;
+			font-size: .9em;
+			padding: 10px 10px;
+			
+			&.cell-question {
+				cursor: default;
+			}
+		}
+	}
+
+	tbody tr.error{
+		background-color: #FFDADA;
+	}
+}
+
+.diary-item{
+	display: inline-block;
+	float: none;
+	margin-left: -5px;
+	vertical-align: top;
+
+	.panel-body{
+		display: none;
+	}
+}

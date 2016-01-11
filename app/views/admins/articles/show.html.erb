@@ -1,0 +1,34 @@
+<div class="page-header">
+	<h1>Artikel: <%= @article.name %></h1>
+</div>
+
+
+<div class="row">
+	<div class="col-md-6">
+
+		<% if (notice) %>
+			<div class="alert alert-info"><%= notice %></div>
+		<% end %>
+
+		<p>
+			<strong>Titel:</strong><br>
+			<%= @article.name %>
+		</p>
+
+		<p>
+		  <strong>Uddrag:</strong><br>
+		  <%= @article.abstract %>
+		</p>
+
+		<p>
+		  <strong>Url:</strong><br>
+		  <%= @article.url %>
+		</p>
+
+		<div class="form-actions">
+			<%= link_to 'Ret artikel', edit_admins_article_path(@article), :class=>'btn btn-primary' %>
+			<%= link_to 'Tilbage', admins_articles_path, :class=>'btn btn-lnk pull-left' %>
+		</div>	
+
+	</div>
+</div>

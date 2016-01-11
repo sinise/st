@@ -1,0 +1,32 @@
+<div class="box">
+	<h3>
+		Motion
+		<span class="glyphicon glyphicon-question-sign help-trigger" title="Hjælp: Motion" data-content="<p>Vi ved, at motion har en indvirkning på, hvor meget belastning vi kan tåle, idet motion og almindelig bevægelse øger kroppens evne til at omsætte stresshormoner. Derfor kan du registrere dels hvor lang tid du har dyrket motion i løbet af dagen, dels med hvilken intensitet. Du har også mulighed for i en kort kommentar at angive hvilken type motion der har været tale om, eller evt. hvad der har gjort det vanskeligt netop i dag.</p>"></span>
+		<small>Angiv hvor meget du har bevæget dig i løbet af dagen.</small>
+	</h3>
+
+	<%= f.fields_for :exercise, @current_diary.exercise do |e| %>
+
+		<div class="row">
+		  <div class="col-md-4">
+
+			  <%= e.label :hours_str, 'Varighed' %>
+				<%= e.text_field :hours_str, { :class => "form-control timepicker required", :autocomplete => 'off', 'data-default-time' => '00:00' } %>
+
+		  </div>
+		  <div class="col-md-4">
+
+			  <%= e.label :intensity, 'Intensitet' %>
+			  <%= e.select(:intensity, options_for_select({'-- Vælg --' => '', 'Lav' => 'lav', 'Medium' => 'medium', 'Høj' => 'høj'}, \
+			  					   selected: @current_diary.exercise.intensity), {}, :class=>'') %>
+
+			</div>
+		  <div class="col-md-4">
+
+				<%= e.text_area :description, { :class => "form-control textarea-autoresize", :placeholder => 'Kommentar'} %>
+
+			</div>
+		</div>
+
+	<% end %>
+</div>

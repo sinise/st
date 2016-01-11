@@ -1,0 +1,158 @@
+<% @test_result = params[:test_result] %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h2>Resultat af test</h2>
+    <% if @test_result == "low_stress_low_env" %>
+      <p>
+        Umiddelbart tyder dine svar på, at du ikke har de store stress symptomer, og der er som sådan ikke noget i forhold til dette område, som du behøver at reagere på hurtigt.
+      </p>
+      <p>
+        Det betyder, at hvis du har udfyldt testen, fordi du er urolig for om der er noget, som du bør reagere på og søge hjælp for, så bør du kigge i en anden retning. Hvis du har fysiske symptomer, som du ikke ved hvad betyder, kan du f.eks. opsøge din læge. Hvis du, på trods af dine svar, ikke trives psykisk, kunne et godt råd være, at tage en samtale eller to med en psykolog med henblik på at få afdækket, hvad det handler om.
+      </p>
+      <p>
+        Du bliver nu sat videre til dine egne arbejdssider, hvor du har mulighed for at afprøve systemet.
+      </p>
+      <p>Tak!</p>
+    <% elsif @test_result == "low_stress_high_env" %>
+      <p>
+        Umiddelbart tyder dine svar på, at du i øjeblikket oplever belastninger enten på dit arbejde eller i dit privatliv, uden at du dog er meget påvirket af det i forhold til netop stress. Dine svar tyder på, at du er god til at håndtere de belastninger, du oplever. Måske har du i øjeblikket meget travlt enten på arbejdet, derhjemme eller begge steder? Såfremt dette varer ved, kan du overveje at søge hjælp, f.eks. ved at tage en samtale med din leder eller ved at kigge på de belastninger, du oplever derhjemme.
+      </p>
+      <p>
+        Resultatet af spørgeskemaet betyder også, at hvis du har udfyldt testen, fordi du er urolig for om der er noget, som du bør reagere på og søge hjælp for, så bør du kigge i en anden retning. Hvis du har fysiske symptomer, som du ikke ved hvad betyder, kan du f.eks. opsøge din læge. Hvis du, på trods af dine svar, ikke trives psykisk, kunne et godt råd være, at tage en samtale eller to med en psykolog med henblik på at få afdækket, hvad det handler om.
+      </p>
+      <p>
+        Du bliver nu sat videre til dine egne arbejdssider, hvor du har mulighed for at afprøve systemet.
+      </p>
+      <p>Tak!</p>
+    <% elsif @test_result == "high_stress_low_env" %>
+      <p>
+        Dine svar tyder på, at du har nogle stress symptomer, som du kan overveje at søge hjælp til håndtering af.  Måske oplever du, at du i øjeblikket er særlig sårbar i forhold til håndtering af belastninger - eller de belastninger som du har, rører ved noget personligt?
+      </p>
+      <p>
+        Nogle gange, afhængig af dine symptomer, kan det også være en fordel at få en almindelig helbredsundersøgelse hos egen læge - blot for at sikre, at du er på rette vej.
+      </p>
+      <p>
+        Du bliver nu sat videre til dine egne arbejdssider, hvor du har mulighed for at afprøve systemet. 
+      </p>
+      <p>Tak!</p>
+    <% elsif @test_result == "high_stress_high_env" %>
+      <p>
+        Dine svar tyder på, at du i øjeblikket har en del belastninger enten på arbejde, derhjemme - eller begge dele, som er svære at tackle, og som tydeligvis påvirker dig i form af typiske symptomer på stress. 
+      </p>
+      <p>
+        Erfaringsmæssigt betyder dette, at du formentligt vil have gavn af et forløb, der sættes ind i tide, så der kan ske en ændring. Vi vil derfor anbefale, at du undersøger muligheden for at starte et forløb f.eks. hos en privatpraktiserende psykolog.
+      </p>
+      <p>
+        Du bliver nu sat videre til dine egne arbejdssider, hvor du har mulighed for at afprøve systemet. 
+      </p>
+      <p>Tak!</p>
+    <% end %>
+    
+  </div>
+</div>
+
+
+
+<!-- Continue registration for stressed clients -->
+<% if @test_result == "high_stress_low_env" || @test_result == "high_stress_high_env" %>
+<div class="row">
+	<div class="col-md-6">
+	
+		<h2>Opret profil</h2>
+
+		<div class="well well-tight"><p>For at din samtale med psykologen bliver så udbytterig som mulig, vil vi bede dig om at give lidt oplysninger om dig selv. Så kan vi bedre fokusere på det, der er vigtigt nu og her i samtalen.</p></div>
+
+
+		<%= form_for(resource, :as => resource_name, \
+      :url => user_registration_path(company_id: @company._id, stress_test_id: @stress_test._id)) do |f| %>
+		  <%= devise_error_messages! %>
+
+      <% if @company.has_departments? %>
+        <div class="form-group">
+          <%= f.label :department, 'Department *' %>
+          <%= f.select :department_id, options_for_select(@company.departments.map{ |d| [d.name, d._id] }), {}, :class => 'form-control' %>
+        </div>
+      <% end %>
+
+<!-TODO: select department, auto add sections->
+      <% department = @company.departments.first %>
+      <div class="form-group">
+          <%= f.label :section, 'Section *' %>
+          <%= f.select :section_id, options_for_select(department.sections.map{ |s| [s.name, s._id] }), {}, :class => 'form-control' %>
+      </div>
+
+		  <div class="form-group">
+		  	<%= f.label :email, 'Email *' %>
+		  	<%= f.email_field :email, :class => 'form-control' %>
+		  </div>
+
+		  <div class="form-group">
+		  	<%= f.label :password, 'Kodeord *' %> <span class="help-inline">(min. 8 tegn)</span>
+		  	<%= f.password_field :password, :class => 'form-control' %>
+		  </div>
+
+		  <div class="form-group">
+		  	<%= f.label :password_confirmation, 'Bekræft kodeord *' %> <span class="help-inline">(min. 8 tegn)</span>
+		  	<%= f.password_field :password_confirmation, :class => 'form-control' %>
+		  </div>
+
+		  <% detail = resource.user_detail || resource.build_user_detail %>
+		  <%= f.fields_for :user_detail, detail do |ud| %>
+        <div class="form-group">
+          <%= ud.label :first_name, 'Fornavn *' %>
+          <%= ud.text_field :first_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :last_name, 'Efternavn *' %>
+          <%= ud.text_field :last_name, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :gender, 'Køn' %>
+          <%= ud.select :gender, [['Mand', 'male'], ['Kvinde', 'female']], {}, :class => 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :mobile, 'Mobil tlf' %>
+          <%= ud.text_field :mobile, :class => 'form-control' %>
+        </div>
+
+				<div class="form-group">
+          <%= ud.label :family_situation, 'Din familiesituation' %>
+          <span class="help-inline">Beskriv kort din familiesituation (er du gift/single/samboende, evt. antal børn og deres alder, søskende eller andet, der har betydning for hvordan du har det lige nu)</span>
+          <%= ud.text_area :family_situation, :class => 'form-control form-control-lg' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :job_situation, 'Din jobsituation' %>
+          <span class="help-inline">Beskriv kort din situation på dit arbejde (ganske kort hvad du laver, hvem du arbejder sammen med – eller andet, der har betydning for hvordan du har det lige nu)</span>
+          <%= ud.text_area :job_situation, :class => 'form-control form-control-lg' %>
+        </div>
+
+        <div class="form-group">
+          <%= ud.label :major_events, 'Betydningsfulde hændelser de sidste 3 år ' %>
+          <span class="help-inline">Skriv kort hvilke betydningsfulde hændelser, der har været i dit liv de sidste 3 år (f.eks. skilsmisse, bryllup, dødsfald i familien, forfremmelse eller fyringer eller andet, der har betydning for hvordan du har det lige nu. Du må gerne skrive i stikordsform)</span>
+          <%= ud.text_area :major_events, :class => 'form-control form-control-lg' %>
+        </div>
+
+        <% if false %>
+	        <div class="form-group">
+	          <%= ud.label :birthday, 'Fødselsdag' %>
+	          <div>
+		          <%= ud.date_select :birthday, :class => 'form-control' %>
+	          </div>
+	        </div>
+	      <% end %>
+
+      <% end %>
+
+      <div class="form-actions">
+        <%= f.submit "Opret profil", :class => "btn btn-lg btn-primary" %>
+      </div>
+		<% end %>
+
+	</div>
+</div>
+<% end %> 

@@ -1,0 +1,51 @@
+<% detail = @client.user_detail %>
+
+
+<div class="row">
+	<div class="col-md-4">
+
+		<strong>Klient</strong>
+
+		<table class="table table-client-info">
+
+			<% if detail %>
+			<tr>
+				<td>Navn:</td>
+				<td><%= detail.full_name %></td>
+			</tr>
+				<tr>
+					<td>Køn:</td>
+					<td><%= detail.gender %></td>
+				</tr>
+				<tr>
+					<td>Fødselsdag:</td>
+					<td><%= detail.birthday %></td>
+				</tr>
+			<% end %>
+			<tr>
+				<td>Email:</td>
+				<td><%= @client.email %></td>
+			</tr>
+		</table>
+
+	</div>
+	<div class="col-md-4">
+
+		<strong>Noter</strong>
+		<%= form_tag('/therapists/client/' << @client._id << '/note', :method=>'put') do %>
+
+			<div class="form-group form-group-with-button">
+				<%= text_area_tag :note, detail ? detail.note : nil, :class => "form-control", :placeholder => 'Noter...', :required => '1' %>
+				<%= submit_tag "Gem", :class => "btn btn-primary" %>
+			</div>
+
+		<% end %>
+		
+	</div>
+	<div class="col-md-4">
+
+		<strong>Stress niveau</strong> <small>- Den sidste uge</small>
+		<div id="chart_div"></div>
+
+	</div>
+</div>

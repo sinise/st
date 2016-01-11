@@ -1,0 +1,43 @@
+
+<!--div class="text-center">
+	<%= link_to('Start stress screening', stresstest_path, :class=>'btn btn-primary btn-lg') %>
+</div-->
+
+<div class="well well-tight">
+
+	<p>Tak fordi du vil deltage i afprøvningen af stressmind.com - online behandling af stress.</p>
+
+	<p>Du starter med en kort screeningstest, hvor du som svar på 30 spørgsmål, får en hurtig tilbagemelding på dit stressniveau lige nu. Herefter får du mulighed for at oprette en profil - og kan så begynde at afprøve systemet. </p>
+	<p>Du kan registrere dit stress-niveau 3 gange dagligt, undersøge mønstrene i hvordan dette evt. hænger sammen med din motion og din søvn - og du kan føre en dagbog over hvilke ting, der især har fyldt i løbet af dagen i forhold til dit stressniveau.</p>
+
+	<p>Såfremt du ønsker også at afprøve en øvelse undervejs, så skriv det i dagbogen - så vil jeg fluks sende dig en øvelse.</p>
+
+	<p>NB! Jeg vil kunne se alle dine registreringer undervejs. Vær desuden opmærksom på, at der ikke vil være tale om egentlig stressbehandling under afprøvningen, men udelukkende om et testforløb.</p>
+	<p>Koden for at komme videre er: 123456 </p>
+
+	<p>På forhånd tak for din hjælp!</p>
+
+	<p>StressMind teamet</p>
+
+</div>
+
+<!-- flash messages -->
+<% flash.each do |key, value| %>
+	<div class="alert alert-danger">
+		<%= value %>
+	</div>
+<% end %>
+
+<%= form_tag(company_validate_code_path, :method=>'post') do %>
+	<a name="company-code-form"></a>
+
+	<div class="form-group">
+		<%= label_tag :company_code, 'Firma kode' %>
+		<%= hidden_field_tag :test_result, @test_result %>
+		<%= text_field_tag :company_code, nil, :class => "form-control" %>
+	</div>
+
+	<div class="form-actions">
+		<%= submit_tag 'Fortsæt', :class => "btn btn-lg btn-primary" %>
+	</div>
+<% end %>

@@ -1,0 +1,38 @@
+<% if admin_signed_in? %>
+
+  <div class="navbar navbar-inverse">
+    <div class="container">
+    	 <%= link_to('StressMind', admins_index_path, :class=>'navbar-brand') %>
+      
+      <ul class="nav navbar-nav navbar-right">
+          <%= nav_link('Oversigt',     admins_index_path) %>
+          <%= nav_link('Clients',      admins_clients_path) %>
+          <%= nav_link('Thrapists',    admins_therapists_path) %>
+          <%= nav_link('Virksomheder', admins_companies_path) %>
+          <%= nav_link('Artikler',     admins_articles_path) %>
+          
+          <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <span class="glyphicon glyphicon-user"></span> Min profil <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <%= nav_link('Opdater profil', edit_admin_registration_path) %>
+            <li><%= link_to('Log ud', destroy_admin_session_path, :method=>:delete) %></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<% else %>
+  
+  <div class="navbar navbar-inverse">
+    <div class="container">
+    	<span class="navbar-brand">StressMind</span>
+      <ul class="nav navbar-nav pull-right">
+        <%= nav_link('Log ind', new_admin_session_path) %>
+      </ul>
+    </div>
+  </div>
+
+<% end %>

@@ -1,0 +1,27 @@
+== README
+
+Setup Guide
+
+* Ruby version
+1.9.3 or 2.0.0
+To install ruby https://www.ruby-lang.org/en/downloads/  (Install on Mac)
+
+* Install RubyGem
+RubyGem is the ruby gem mangement tool.  http://rubygems.org/pages/download
+
+* Install Rails
+Rails 3.2.x and 4.0 are fine.
+gem install rails
+
+* Install git
+http://git-scm.com/downloads
+
+* Clone the rails project
+git clone https://HaoDeng@bitbucket.org/stressmind/stressmind.git
+
+* start
+cd stresmind
+bundle install  # setup all the gems
+rails s         # start rails on localhost:3000
+
+go to http://locahost:3000, you should see the default start page.

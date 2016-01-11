@@ -1,0 +1,31 @@
+
+			<% if @department.errors.any? %>
+				<div class="alert alert-danger">
+					<ul>
+						<% @department.errors.full_messages.each do |msg| %>
+							<li><%= msg %></li>
+						<% end %>
+					</ul>
+				</div>
+			<% end %>
+
+		  <div class="form-group">
+		    <%= f.label :name, 'Navn' %>
+		    <%= f.text_field :name, :class => "form-control", :autofocus => true %>
+		  </div>
+
+		  <div class="form-group">
+		    <%= f.label :phone, 'Telefon' %>
+		    <%= f.text_field :phone, :class => "form-control" %>
+		  </div>
+
+
+		  <div class="form-group">
+		    <%= f.label :email %>
+		    <%= f.text_field :email, :class => "form-control" %>
+		  </div>
+
+			<div class="form-actions">
+				<%= f.submit 'Gem', :class => "btn btn-lg btn-primary" %>
+				<%= link_to 'Tilbage', admins_company_path(@company), :class => "btn btn-lnk pull-left" %>
+			</div>

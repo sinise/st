@@ -1,0 +1,36 @@
+<% if @stress_test %>
+	<div class="page-header">
+		<h1>Stresstest</h1>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4">
+			<strong><%= @stress_test.test_result %></strong>
+
+			<table class="table">
+				<tr>
+					<td>PD:</td>
+					<td><%= @stress_test.pd %></td>
+				</tr>
+				<tr>
+					<td>EL:</td>
+					<td><%= @stress_test.el %></td>
+				</tr>
+				<tr>
+					<td>Test dato:</td>
+					<td><%= time_ago_in_words(@stress_test.created) %> siden</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<% version = @stress_test.version %>
+
+	<!-- A fake form -->
+	<%= form_for(@stress_test, :url => '', :html => {:class => 'form-horizontal form-screening'}) do |f| %>
+			<a name="stress-form"></a>
+
+	    <%= render partial: "users/stress_test/stress_test_questions_" << version, locals: {:f => f} %>
+
+	<% end %>
+<% end %>

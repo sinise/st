@@ -1,0 +1,120 @@
+<div class="page-header">
+	<h1>Book a timeslot with Therapist</h1>
+</div>
+
+<div class="month-name">
+	<div class="previous">
+			<%= link_to "<", :month => (@date.beginning_of_month-1).strftime("%Y-%m-01") %>				
+	</div>
+	<div class="current"><%=h @date.strftime("%B %Y") %></div>
+	<div class="next">
+  		<%= link_to ">", :month => (@date.end_of_month+1).strftime("%Y-%m-01") %>
+  	</div>
+</div>
+
+<div class="therapist-calendar">
+	<table id='therapist-calendar'>
+	 	<tr>
+	   		<th>Sunday</th>
+	   		<th>Monday</th>
+	   		<th>Tuesday</th>
+	   		<th>Wednesday</th>
+	   		<th>Thursday</th>
+	   		<th>Friday</th>
+	   		<th>Saturday</th>
+		</tr>
+		<tr>
+			<% (@date.beginning_of_month..@date.end_of_month).each do |d| %>
+				<% if d == @date.beginning_of_month %>
+					<% d.wday.times do %> 
+						<td></td>
+					<% end %>
+				<% end %>
+
+				<% if d.wday == 0 %> 
+					</tr><tr> 
+				<% end %>
+				
+				<td>
+					<span class="choose-date"><%= d.day %></span>
+					<ul>
+				        <% for timeslot in @timeslots_hash[d.day] %>
+				        	<li href="#timeslot" data-toggle="modal" \
+				        			data-timeslot-id="<%= timeslot.id%>" \
+				        			data-date="<%= timeslot.start_at.strftime('%m/%d/%Y')%>" \
+				        			data-start-at="<%= timeslot.start_at.strftime('%H:%M')%>" \
+				        			data-end-at="<%= timeslot.end_at.strftime('%H:%M')%>">
+				        		<%= timeslot.to_text %>
+				        	</li>
+				        <% end %>
+			    	</ul>
+				</td>
+				
+			<% end %>
+		</tr>
+	</table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="timeslot" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<strong>Book a timeslot</strong>
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center">
+				  
+				  	<%= form_tag('') do %>
+  
+				  		<div>
+				  			<div>Date: <%= label_tag :date %></div>
+				  			<div>
+				  			  Session: 
+				  			  <%= label_tag :start_at %> --
+				  			  <%= label_tag :end_at %>
+				  			</div>
+				  			<%= hidden_field_tag :timeslotId %>
+				  			<%= submit_tag "Book", :class => "btn-primary btn-sm" %>
+				  			<button type="button" class="btn-sm btn-default" data-dismiss="modal">Close</button>
+				  		</div>
+
+					<% end %>
+
+				</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var ready = function() {
+	$('.choose-date').click(function(){
+		$('.choose-date').removeClass('selected');
+		$('td > ul').removeClass('show');
+		var bodyShow = $(this).parent().find('ul:hidden');
+		$(this).addClass('selected');
+		$(bodyShow).addClass('show');
+	})
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+
+//triggered when modal is about to be shown
+$('#timeslot').on('show.bs.modal', function(e) {
+    //get data-id attribute of the clicked element
+    var timeslotId = $(e.relatedTarget).data('timeslot-id');
+    var date = $(e.relatedTarget).data('date');
+    var startAt = $(e.relatedTarget).data('start-at');
+    var endAt = $(e.relatedTarget).data('end-at');
+    //populate the textbox
+    $(e.currentTarget).find('label[for="date"]').text(date);
+    $(e.currentTarget).find('label[for="start_at"]').text(startAt);
+    $(e.currentTarget).find('label[for="end_at"]').text(endAt);
+    $(e.currentTarget).find('input[name="timeslotId"]').val(timeslotId);
+});
+</script>

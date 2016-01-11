@@ -1,0 +1,22 @@
+<!-- flash messages -->
+<% flash.each do |key, value| %>
+	<div class="alert alert-danger">
+		<%= value %>
+	</div>
+<% end %>
+
+<div class="well well-tight">
+	<p> Test link expired, you are welcome to book a new one.</p>
+</div>
+
+<%= form_tag(users_send_invitation_email_path, :method=>'post') do %>
+  <%= hidden_field_tag :company_id, @company.id%>
+	<div class="form-group">
+		<%= label_tag :email, 'Email' %>
+		<%= text_field_tag :email, nil, :class => "form-control" %>
+	</div>
+
+	<div class="form-actions">
+		<%= submit_tag 'Continue', :class => "btn btn-lg btn-primary" %>
+	</div>
+<% end %>

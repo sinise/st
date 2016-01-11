@@ -1,0 +1,287 @@
+<%= f.hidden_field :version,  :value => '1.0'%>
+<table class="table table-hover table-screening">
+<thead>
+    <tr>
+        <th class="cell-question">I løbet af den sidste uge, hvor ofte har du da haft en oplevelse af at:</th>
+        <th class="text-center">Slet ikke</th>
+        <th class="text-center">&nbsp;</th>
+        <th class="text-center">&nbsp;</th>
+        <th class="text-center">&nbsp;</th>
+        <th class="text-center">Meget ofte</th>
+    </tr>
+</thead>
+
+<tbody>
+    <tr>
+        <td class="cell-question">...være i indre ro?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q1, i, :checked => @stress_test.results['q1'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr>
+        <td class="cell-question">...anstrengt?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q2, i, :checked => @stress_test.results['q2'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr>
+        <td class="cell-question">...utilstrækkelig?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q3, i, :checked => @stress_test.results['q3'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr>
+        <td class="cell-question">...overbebyrdet?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q4, i, :checked => @stress_test.results['q4'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr>
+        <td class="cell-question">...selvsikker?</td>
+        <!-- Only item 5 is reverse keyed -->
+        <% 5.downto(1) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q5, i, :checked => @stress_test.results['q5'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr>
+        <td class="cell-question">...kedede dig?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q6, i, :checked => @stress_test.results['q6'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...opleve, at du ikke bevægede dig fremad?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q7, i, :checked => @stress_test.results['q7'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...overvældet af ansvar?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q8, i, :checked => @stress_test.results['q8'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du havde alle odds imod dig?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q9, i, :checked => @stress_test.results['q9'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...der ikke var tid nok til at få gjort alt ordentligt?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q10, i, :checked => @stress_test.results['q10'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...være generøs overfor andre?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q11, i, :checked => @stress_test.results['q11'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du måtte skynde dig?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q12, i, :checked => @stress_test.results['q12'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du umuligt kunne klare det hele?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q13, i, :checked => @stress_test.results['q13'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du havde mange forskellige ting i tankerne?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q14, i, :checked => @stress_test.results['q14'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...intet gik som det skulle?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q15, i, :checked => @stress_test.results['q15'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...uden bekymringer?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q16, i, :checked => @stress_test.results['q16'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...magtesløs?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q17, i, :checked => @stress_test.results['q17'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...havde påtaget dig for mange ting?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q18, i, :checked => @stress_test.results['q18'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...som om dit liv var uden for din kontrol?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q19, i, :checked => @stress_test.results['q19'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...som om ting bare blev ved med at læsse sig op?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q20, i, :checked => @stress_test.results['q20'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...som om du kunne fokusere på de vigtige ting?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q21, i, :checked => @stress_test.results['q21'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du måtte tage en masse hurtige beslutninger?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q22, i, :checked => @stress_test.results['q22'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du havde lyst til at spørge: ”hvad kan ellers gå galt her?”</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q23, i, :checked => @stress_test.results['q23'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du ikke havde tid til at trække vejret?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q24, i, :checked => @stress_test.results['q24'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...at tingene ikke kunne blive værre?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q25, i, :checked => @stress_test.results['q25'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...fredfyldt?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q26, i, :checked => @stress_test.results['q26'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...som om der ikke var nogen udvej?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q27, i, :checked => @stress_test.results['q27'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...som om du bar på meget på dine skuldre?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q28, i, :checked => @stress_test.results['q28'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...du havde lyst til at give op?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q29, i, :checked => @stress_test.results['q29'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+    <tr class="row-last">
+        <td class="cell-question">...der var alt for meget til alt for lidt tid?</td>
+        <% 1.upto(5) do |i| %>
+            <td class="text-center">
+              <%= f.radio_button :q30, i, :checked => @stress_test.results['q30'] == i.to_s %>
+            </td>
+        <% end %>
+    </tr>
+
+</tbody>
+</table>

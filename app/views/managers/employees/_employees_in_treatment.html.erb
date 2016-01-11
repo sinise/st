@@ -1,0 +1,32 @@
+<h4>Medarbejdere i behandlinger</h4>
+<div><%= paginate @employees %></div>
+
+<table class="table table-striped table-tight">
+	<thead>
+		<tr>
+			<th>Fornavn</th>
+			<th>Efternavn</th>
+			<th>Email</th>
+			<th>Sidst online</th>
+		</tr>	
+	</thead>
+	<tbody>
+		<% @employees.desc(:current_sign_in_at).each do |e| %>
+			<tr>
+				<% if e.user_detail %>
+					<td><%= e.user_detail.first_name %></td>
+					<td><%= e.user_detail.last_name %></td>
+				<% else %>
+					<td></td>
+					<td></td>
+				<% end %>
+				<td><%= e.email %></td>
+				<td>
+					<% if e.current_sign_in_at %>
+						<span title="<%= e.current_sign_in_at.strftime("%d %B %Y - %H:%M:%S") %>"><%= time_ago_in_words(e.current_sign_in_at) %></span>
+					<% end %>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

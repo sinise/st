@@ -1,0 +1,51 @@
+<script>
+	UserVoice=window.UserVoice||[];
+	(function(){
+		var uv=document.createElement('script');
+		uv.type='text/javascript';
+		uv.async=true;
+		uv.src='//widget.uservoice.com/ofln8Hio3GE0icf5FOSpNA.js';
+		var s=document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(uv,s)
+	})();
+
+	UserVoice.push(['set', {
+		accent_color: '#1abc9c',
+		contact_enabled: true,
+		locale: 'da',
+		post_idea_enabled: false,			
+		screenshot_enabled: true,
+		smartvote_enabled: false,
+		trigger_background_color: '#1abc9c',
+		trigger_color: 'white'
+	}]);
+
+	<% if current_user %>
+		UserVoice.push(['identify', {
+			id: '<%= current_user.id %>',
+			email: '<%= current_user.email %>'
+			<% if current_user.user_detail %>
+				<%=raw ",name: '" + current_user.user_detail.first_name + " " + current_user.user_detail.last_name + "'" %>
+			<% end %>
+		}]);
+	<% end %>
+	
+	UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+</script>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45395778-2', 'stressmind.com');
+  ga('send', 'pageview');
+</script>
+  
+<script>
+document.write(unescape("%3Cscript%20src='"+
+(document.location.protocol=='https:'?
+"https://clicktalecdn.sslcs.cdngc.net/www02/ptc/2101e2b1-8772-464d-a569-9f196a8ec90f.js":
+"http://cdn.clicktale.net/www02/ptc/2101e2b1-8772-464d-a569-9f196a8ec90f.js")+"'%20type='text/javascript'%3E%3C/script%3E"));
+</script>

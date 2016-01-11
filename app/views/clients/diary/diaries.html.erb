@@ -1,0 +1,194 @@
+<div class="page-header">
+	<div class="row">
+	  <div class="col-md-6">
+			
+			<h1>Min dagbog: Sidste 7 dage</h1>
+
+		</div>
+	  <div class="col-md-6">
+			<div class="btn-group pull-right">
+				<%= link_to(clients_index_path, { :class => "btn btn-primary" }) do %>
+					<span class="glyphicon glyphicon-calendar"></span>
+					Dags dato
+				<% end %>
+				
+				<%= link_to(diaries_path, { :class => "btn btn-primary active" }) do %>
+					<span class="glyphicon glyphicon-list"></span>
+					Sidste 7 dage
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="row">
+
+	<div class="col-md-12">
+
+
+		<% @diaries.each do |diary| %>
+
+			<div class="diary-item col-md-6">
+
+				<div class="diary-item-header">
+					<div class="row">
+					  <div class="col-md-6">
+							<h2><%= diary.date.strftime("%d %B %Y") %></h2>
+					  </div>
+					  <div class="col-md-6">
+							<%= link_to('Ret dagbog', '/clients/date/'<< diary.date.to_s, { :class => "btn btn-sm btn-primary pull-right" }) %>
+						</div>
+					</div>
+				</div>
+				
+				<!-- Diary
+				<div class="panel panel-success">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Dagbog</h3>
+				  </div>
+				  <div class="panel-body">
+						<%= diary.diary %>
+					</div>
+				</div>
+				-->
+
+
+				<!-- Stress -->
+				<% stress = diary.stress || Diaries::Stress.new %>
+				<div class="panel panel-success">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Stress niveau</h3>
+				  </div>
+				  <div class="panel-body">
+
+						<table class="table table-panel">
+							<thead>
+								<th class="cell-1st">Tidspunkt</th>	
+								<th class="cell-2nd">Stress</th>	
+								<th class="cell-3rd">Kommentar</th>	
+							</thead>
+							<tbody>
+								<tr>
+									<td>Kl. 10</td>
+									<td><%= stress.level_1 %></td>
+									<td><%= stress.level_1_comment %></td>
+								</tr>
+								<tr>
+									<td>Kl. 14</td>
+									<td><%= stress.level_2 %></td>
+									<td><%= stress.level_2_comment %></td>
+								</tr>
+								<tr>
+									<td>Kl. 18</td>
+									<td><%= stress.level_3 %></td>
+									<td><%= stress.level_3_comment %></td>
+								</tr>
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+
+				<!-- Sleep -->
+				<% sleep = diary.sleep || Diaries::Sleep.new %>
+				<div class="panel panel-success">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Søvn</h3>
+				  </div>
+				  <div class="panel-body">
+
+						<table class="table table-panel">
+							<thead>
+								<th class="cell-1st">Varighed</th>	
+								<th class="cell-2nd">Søvnkvalitet</th>	
+								<th class="cell-3rd">Kommentar</th>	
+							</thead>
+							<tbody>
+								<tr>
+									<td><%= sleep.hours_str %></td>
+									<td><%= sleep.quality %></td>
+									<td><%= sleep.description %></td>
+								</tr>	
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+
+				<!-- Exercise -->
+				<% exercise = diary.exercise || Diaries::Exercise.new %>
+				<div class="panel panel-success">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Motion</h3>
+				  </div>
+				  <div class="panel-body">
+						  				
+						<table class="table table-panel">
+							<thead>
+								<th class="cell-1st">Varighed</th>	
+								<th class="cell-2nd">Intensitet</th>	
+								<th class="cell-3rd">Kommentar</th>	
+							</thead>
+							<tbody>
+								<tr>
+									<td><%= exercise.hours_str %></td>
+									<td><%= exercise.intensity %></td>
+									<td><%= exercise.description %></td>
+								</tr>	
+							</tbody>
+						</table>
+
+					</div>
+				</div>
+
+
+				<!-- Comments -->
+				<% if diary.comments.any? %>
+					<div class="diary-comments">
+						<h4>Kommentarer:</h4> 
+						<ul>
+							<% diary.comments.desc(:created).each do |c| %>
+								<li>
+									<p class="comment-text"><%= c.comment %></p>
+									<p class="comment-date">
+										Skrevet for <%= time_ago_in_words(c.created) %>
+
+										<% if c.user %>
+											<% if c.user.user_detail %>
+												af <%= c.user.user_detail.full_name %>
+											<% end %>
+										<% end %>
+
+										<% if c.therapist %>
+											<% if c.therapist.therapist_detail %>
+												af <%= c.therapist.therapist_detail.first_name + ' ' + c.therapist.therapist_detail.last_name %>
+											<% end %>
+										<% end %>
+									</p>
+								</li>
+							<% end %>
+						</ul>
+					</div>
+				<% end %>
+
+			</div>
+
+		<% end %>
+
+	</div>
+</div>
+<script>
+var ready = function() {
+	$('.panel-heading').click(function(){
+		var bodyShow = $(this).parent().find('.panel-body')
+		$(bodyShow).toggle();
+	})
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+</script>

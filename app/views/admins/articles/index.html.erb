@@ -1,0 +1,38 @@
+<div class="page-header">
+	<div class="row">
+		<div class="col-md-6">
+			<h1>Artikler</h1>
+		</div>
+		<div class="col-md-6 text-right">
+			<%= link_to 'Ny artikel', new_admins_article_path, :class=>'btn btn-primary' %>
+		</div>
+	</div>
+</div>
+
+
+
+<table class="table table-striped table-tight">
+  <thead>
+    <tr>
+      <th>Titel</th>
+      <th>Uddrag</th>
+      <th>Url</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= article.name %></td>
+        <td><%= article.abstract %></td>
+        <td><%= article.url %></td>
+        <td class="text-right nowrap">
+        	<%= link_to 'Vis', admins_article_path(article), { :class=>'btn btn-sm btn-primary' } %>
+        	<%= link_to 'Ret', edit_admins_article_path(article), { :class=>'btn btn-sm btn-primary' } %>
+        	<%= link_to 'Slet', admins_article_path(article), :class=>'btn btn-sm btn-primary', method: :delete, data: { confirm: 'Er du sikker?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

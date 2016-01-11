@@ -1,0 +1,42 @@
+<h1>Klienter</h1>
+
+<div><%= paginate @clients %></div>
+
+<table class="table table-striped table-tight">
+	<thead>
+		<tr>
+			<th>Fornavn</th>
+			<th>Efternavn</th>
+			<th>Sidst online</th>
+			<th>Note</th>
+			<th></th>
+		</tr>	
+	</thead>
+	<tbody>
+		<% @clients.desc(:current_sign_in_at).each do |c| %>
+			<tr>
+				<td class="nowrap">
+					<% if c.user_detail %>
+						<%= c.user_detail.first_name %>
+					<% end %>
+				</td>
+				<td class="nowrap">
+					<% if c.user_detail %>
+						<%= c.user_detail.last_name %>
+					<% end %>
+				</td>
+				<td class="nowrap">
+					<% if c.current_sign_in_at %>
+						<span title="<%= c.current_sign_in_at.strftime("%d %B %Y - %H:%M:%S") %>"><%= time_ago_in_words(c.current_sign_in_at) %></span>
+					<% end %>
+				</td>
+				<td>
+					<% if c.user_detail %>
+						<%= c.user_detail.note %>
+					<% end %>
+				</td>
+				<td><%= link_to('Vis klient', therapists_path(c), { :class=>'btn btn-sm btn-primary pull-right' }) %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>

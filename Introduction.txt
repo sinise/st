@@ -1,0 +1,65 @@
+Client
+Client are employees from companies.
+* Do stress test
+* Signup. After compeleting a stress test, client get result and can do signup. After signup, the client have to wait company manager to approve/reject.
+* Add diary (stress level, slepping time etc), add comments
+* View the statistics of diary (some graphs, charts etc)
+* Do assignments
+* Make appointment with therapist, be able to view therapist calendar
+* Cancel appointment (Email notification to therapist)
+* Read files from therapist
+* update profile, change pwd
+
+Test client:
+http://localhost:3000/users/sign_in
+client@test.dk
+11111111
+
+or you can do a stress test --> signup --> Login as company admin --> approve the new client
+
+--------------------------------------------------
+Therapist
+Therapist part currently is not urgent.
+* View the list of clients (by companies)
+* Search a client by firstname, lastname or email
+* View clients stress test result
+* View  clients diary, add comment
+* Add journal
+* Edit calendar (Client can see the calendar to make appointment)
+* Cancel appointment (Email notification to Client)
+* Assign assginments to client
+* View clients' assignments
+* Assign a file to client to read
+* Input a treatment information. (cient, start time, end time, location, treatment type etc. This will be included in the invoice and give it to the company every month)
+* Update profile, change pwd
+
+Test therapist:
+http://localhost:3000/therapists/sign_in
+th@test.dk
+11111111
+
+-------------------------------------------------
+Company Manager
+* View a list of empoyees
+* Approve/Reject a employee after his signup
+* View the treatments infomation. (threapist, employee, start time, end time etc)
+* Update profile, change pwd
+
+Test manager:
+http://localhost:3000/managers/sign_in
+mgr@test.dk
+11111111
+
+-------------------------------------------------
+Admin
+* Upload/delete files. Therapist will assign these files to clients.
+* Add/Delete/Update a company profile
+
+Test admin:
+http://localhost:3000/admins/sign_in
+admin@stressmind.dk
+11111111
+
+
+The functions and designs for Client and Company manager are most important for us, they are the real users who judge our platform. 
+Therapist and Admin currently is Mette and me.

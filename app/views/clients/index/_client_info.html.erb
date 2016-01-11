@@ -1,0 +1,25 @@
+<% detail = current_user.user_detail %>
+
+<strong>Klient</strong>
+
+<table class="table table-client-info">
+
+	<% if detail %>
+	<tr>
+		<td>Navn:</td>
+		<td><%= detail.full_name %></td>
+	</tr>
+		<tr>
+			<td>Køn:</td>
+			<td><%= detail.gender %></td>
+		</tr>
+		<tr>
+			<td>Fødselsdag:</td>
+			<td><%= detail.birthday %></td>
+		</tr>
+	<% end %>
+	<tr>
+		<td>Email:</td>
+		<td><%= current_user.email %></td>
+	</tr>
+</table>

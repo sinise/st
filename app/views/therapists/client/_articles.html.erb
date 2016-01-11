@@ -1,0 +1,36 @@
+<div class="page-header">
+	<h1>Article</h1>
+</div>
+
+<table class="table table-striped table-tight">
+	<thead>
+		<tr>
+			<th>Title</th>
+			<th>Assigned at</th>
+			<th></th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<% @articles.desc(:assigned_at).each do |a| %>
+			<tr>
+				<td><%= a.article.name %></td>
+				<td><%= time_ago_in_words(a.assigned_at) %> siden</td>
+				<td><%= link_to 'Vis article', assignments_path(a), { :class=>'btn btn-sm btn-primary' } %></td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+
+<div>
+	<%= form_tag('/assignments/client/' << @client._id) do |f| %>
+
+	  <div class="form-group form-group-with-button">
+	  	<%= select_tag :name, \
+	  		"<option>ABC opgave</option><option>En positiv ting om dagen</option>".html_safe, \
+	  		:class => 'form-control' %>
+
+	  	<%= submit_tag "Tildel", :class => "btn btn-primary" %>
+	  </div>
+	<% end %>
+</div>

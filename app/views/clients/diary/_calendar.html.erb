@@ -1,0 +1,169 @@
+<div id="dagbog-calendar" class="dagbog-calendar"></div>
+
+<ul class="dagbog-calendar-explanation">
+	<li>Rød dato betyder, at du mangler at lave registreringer denne dag.</li>
+	<li>Grøn dato betyder, at du har en kommentar fra din psykolog denne dag.</li>
+	<li>Fed skrift angiver dagen i dag.</li>
+</ul>
+
+
+<!--
+<ul class="calendar-explanation">
+	<li>Grå dato betyder, at du mangler at lave registreringer denne dag.</li>
+	<li>Rød dato betyder, at du har en ulæst kommentar fra din psykolog denne dag.</li>
+	<li>Grøn dato betyder, at du har en læst kommentar fra din psykolog denne dage.</li>
+	<li>Kursiv skrift angiver, at du denne dag har haft en direkte session med din psykolog.</li>
+	<li>Fed skrift angiver dagen i dag.</li>
+</ul>
+
+-->
+
+
+<script src="/assets/jquery.ui.datepicker-da.js"></script>
+<script>
+
+var calendar = (function(){
+
+    var date = new Date();
+    var month = date.getMonth() + 1;
+    var calDays = [];
+    var today;
+
+    var update = function(){
+        $("#dagbog-calendar").datepicker("refresh");
+    };
+    var changeMonth = function(direction){
+        if(direction == "prev"){
+            month--;
+        }else if(direction == "next"){
+            month++;
+        }
+        var monthData = getMonthData();
+        $.when(monthData).then(function(){
+            update();
+        });
+
+    };
+
+
+    var create = function(){
+        var monthData = getMonthData();
+        $.when(monthData).then(function(){
+            $("#dagbog-calendar").datepicker({
+                                firstDay: 1,
+                                beforeShowDay: function(currentDate) {
+                                    return calendarDay(currentDate, calDays, today);
+                                },
+                                onSelect: function (text, instance) {
+                                    var y = instance.selectedYear;
+                                    var m = instance.selectedMonth;
+                                    var d = instance.selectedDay;
+                                    window.location.href = '/clients/date/' + y + '-' + (m+1) + '-' + d;
+                                },
+                                onChangeMonthYear: function(year, month, instance) {
+                                    initCalPopover();
+                                }
+                    });
+            initCalPopover();
+        });
+
+    };
+
+    var getMonthData = function(){
+
+        var d = $.Deferred();
+
+        var addUrlParam = "?month="+ month;
+
+        $.ajax({
+                url: '/clients/<%= @current_user._id %>/monthly_diaries.json'+ addUrlParam,
+                dataType: 'json',
+                async: true
+            }).done(function(jsonData) {
+                // parse dates
+                today = new Date();
+                calDays = [];
+                $.each(jsonData, function(i, elm) {
+                    var date = parseDate(elm.date);
+                    if (today >= date) {
+                        calDays.push({
+                            date: date.getTime(),
+                            hasComments: (elm.hasComments ? true : false),
+                            hasDiary: (elm.hasDiary ? true : false)
+                        });
+                    }
+                });
+                d.resolve();
+        });
+        return d.promise();
+    };
+
+     return {
+        create:create,
+        update:update,
+        changeMonth:changeMonth
+
+     };
+
+})();
+
+function initCalPopover(){
+	setTimeout(function() {
+		// move table cell titles to data-content
+		$("#dagbog-calendar").find('td.cal-day').each(function(elm){
+			var title = $(this).attr('title');
+			$(this).attr('title', '');
+			$(this).data('content', '<p>' + title + '</p>');
+		})
+
+		// help popovers
+		$("#dagbog-calendar").find('td.cal-day').popover({
+			trigger: 'hover',
+			container: 'body',
+			placement: 'right',
+			html: true
+		});
+
+	}, 200);
+}
+
+function parseDate(date) {
+  var parts = date.split('/');
+  return new Date(parts[2], parts[1]-1, parts[0]); // months are 0-based
+}
+
+function calendarDay(currentDate, calDays, today) {
+	if (today < currentDate) {
+		return [false, 'cal-day-future', ''];
+	}
+	else {
+		var result = $.grep(calDays, function(e){ return e.date == currentDate.getTime(); });
+
+		if (result.length > 0) {
+			if (result[0].hasDiary)
+				return [true, 'cal-day cal-day-missing', 'Du mangler registrering denne dag.'];
+
+			if (result[0].hasComments)
+				return [true, 'cal-day cal-day-comments', 'Du har en kommentar fra din psykolog denne dag.'];
+		}
+
+		return [false, '', ''];
+	}
+}
+function setCalendarBindings (){
+
+    $(document).on("click",".ui-datepicker-prev", function(){
+        calendar.changeMonth("prev");
+    });
+
+    $(document).on("click",".ui-datepicker-next",function(){
+        calendar.changeMonth("next");
+
+    });
+}
+
+$(document).ready(calendar.create);
+$(document).on('page:load', calendar.create);
+setCalendarBindings();
+
+</script>

@@ -1,0 +1,24 @@
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Motion</h3>
+  </div>
+  <div class="panel-body">
+
+		<% exercise = @current_diary.exercise || Diaries::Exercise.new %>
+		<table class="table table-panel">
+			<thead>
+				<th class="cell-1st">Varighed</th>	
+				<th class="cell-2nd">Intensitet</th>	
+				<th class="cell-3rd">Kommentar</th>	
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= exercise.hours_str || '--' %></td>
+					<td><%= exercise.intensity || '--' %></td>
+					<td><%= exercise.description || '--' %></td>
+				</tr>	
+			</tbody>
+		</table>
+
+	</div>
+</div>

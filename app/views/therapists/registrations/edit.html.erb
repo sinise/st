@@ -1,0 +1,34 @@
+<%= render "therapists/registrations/therapist_details" %>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <h1>Skift kodeord</h1>
+    <%= devise_error_messages! %>
+
+    <%= form_for(current_therapist, :url => therapist_registration_path, :html => { :method => :put }) do |f| %>
+
+      <div class="form-group">
+        <%= f.label :password, 'Nyt kodeord' %> <span class="help-inline">(kun hvis du ønsker at skifte dit kodeord)</span>
+        <%= f.password_field :password, :autocomplete => "off", :class => "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :password_confirmation, 'Bekræft nyt kodeord' %> <span class="help-inline">(kun hvis du ønsker at skifte dit kodeord)</span>
+        <%= f.password_field :password_confirmation, :class => "form-control" %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :current_password, 'Nuværende kodeord *' %>
+        <%= f.password_field :current_password, :class => "form-control" %>
+      </div>
+
+     
+      <div class="form-actions">
+        <%= f.submit "Opdater profil", :class => "btn btn-lg btn-primary" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>

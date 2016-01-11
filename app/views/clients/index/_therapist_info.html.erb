@@ -1,0 +1,68 @@
+<% therapist = current_user.therapist %>
+<% detail = therapist.therapist_detail  if therapist %>
+
+<% if therapist %>
+  <strong>Min Therapist</strong>
+
+  <table class="table table-client-info">
+
+  	<% if detail %>
+  	  <tr>
+  		  <td>Navn:</td>
+  		  <td><%= detail.full_name %></td>
+  	  </tr>
+  		<tr>
+  			<td>Køn:</td>
+  			<td><%= detail.gender %></td>
+  		</tr>
+  		<tr>
+  			<td>Mobil:</td>
+  			<td><%= detail.mobile %></td>
+  		</tr>
+  	<% end %>
+
+  	<tr>
+  		<td>Email:</td>
+  		<td><%= therapist.email %></td>
+  	</tr>
+
+  	<% if detail %>
+  		<tr>
+  			<td>About me:</td>
+        <td>
+          <a href="#therapist_about_me"  data-toggle="modal">Read more...</a>
+
+          <!-- Modal -->
+          <div class="modal fade" id="therapist_about_me" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                </div>
+                <div class="modal-body">
+                  <%= detail.about_me %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  			</td>
+  		</tr>
+  	<% end %>
+  </table>
+<% elsif current_user.stressed? %>
+  <strong>Min Therapist</strong>
+  <p>Please wait, you will assign a therapist.</p>
+<% else %>
+  <p>You looks fine.</p>
+<% end %>
+
+<script>
+  
+</script>
+
+
+
+

@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-md-6">
+		<h2>Resultat af test</h2>
+		<% if @test_result == "low_stress_low_env" %>
+			<p>
+				Umiddelbart tyder dine svar på, at du ikke har de store stress symptomer, og der er som sådan ikke noget i forhold til dette område, som du behøver at reagere på hurtigt. Du er velkommen til at vende tilbage ved en senere lejlighed og prøve igen.
+			</p>
+			<p>
+				Det betyder, at hvis du har udfyldt testen, fordi du er urolig for om der er noget, som du bør reagere på og søge hjælp for, så bør du kigge i en anden retning. Hvis du har fysiske symptomer, som du ikke ved hvad betyder, kan du f.eks. opsøge din læge. Hvis du, på trods af dine svar, ikke trives psykisk, kunne et godt råd være, at tage en samtale eller to med en psykolog med henblik på at få afdækket, hvad det handler om.
+			</p>
+		<% elsif @test_result == "low_stress_high_env" %>
+			<p>
+				Umiddelbart tyder dine svar på, at du i øjeblikket oplever belastninger enten på dit arbejde eller i dit privatliv, uden at du dog er meget påvirket af det i forhold til netop stress. Dine svar tyder på, at du er god til at håndtere de belastninger, du oplever. Måske har du i øjeblikket meget travlt enten på arbejdet, derhjemme eller begge steder? Såfremt dette varer ved, kan du overveje at søge hjælp, f.eks. ved at tage en samtale med din leder eller ved at kigge på de belastninger, du oplever derhjemme.
+			</p>
+			<p>Du er velkommen til at vende tilbage ved en senere lejlighed og prøve igen.</p>
+			<p>
+				Resultatet af spørgeskemaet betyder også, at hvis du har udfyldt testen, fordi du er urolig for om der er noget, som du bør reagere på og søge hjælp for, så bør du kigge i en anden retning. Hvis du har fysiske symptomer, som du ikke ved hvad betyder, kan du f.eks. opsøge din læge. Hvis du, på trods af dine svar, ikke trives psykisk, kunne et godt råd være, at tage en samtale eller to med en psykolog med henblik på at få afdækket, hvad det handler om.
+			</p>
+		<% elsif @test_result == "high_stress_low_env" %>
+			<p>
+				Dine svar tyder på, at du har nogle stress symptomer, som du kan overveje at søge hjælp til håndtering af.  Måske oplever du, at du i øjeblikket er særlig sårbar i forhold til håndtering af belastninger - eller de belastninger som du har, rører ved noget personligt?
+			</p>
+			<p>
+				Resultatet af spørgeskemaet tyder på, at du måske kunne have gavn af et forløb enten her eller hos en privatpraktiserende psykolog. Såfremt du ønsker et forløb her, er næste skridt, at du booker en tid til en personlig samtale med en psykolog. Samtalen foregår via telefon eller video og har til formål at sikre, at forløbet passer til dig. Det vil tage ca. 30 minutter og er helt gratis :) 
+			</p>
+			<p>
+				Nogle gange, afhængig af dine symptomer, kan det også være en fordel at få en almindelig helbredsundersøgelse hos egen læge - blot for at sikre, at du er på rette vej.
+			</p>
+		<% elsif @test_result == "high_stress_high_env" %>
+			<p>
+				Dine svar tyder på, at du i øjeblikket har en del belastninger enten på arbejde, derhjemme - eller begge dele, som er svære at tackle, og som tydeligvis påvirker dig i form af typiske symptomer på stress. 
+			</p>
+			<p>
+				Erfaringsmæssigt betyder dette, at du formentligt vil have gavn af et forløb, der sættes ind i tide, så der kan ske en ændring. Vi vil derfor anbefale, at du undersøger muligheden for at starte et forløb her eller hos en privatpraktiserende psykolog.
+				Baseret på dine svar kan det også være en god ide, at du hos din læge får en almen helbredsundersøgelse, hvor du nævner dine symptomer. På den måde kan det fra starten sikres, at du er på rette vej.
+			</p>
+			<p>
+				Såfremt du ønsker et forløb her, er næste skridt, at du booker en tid til en personlig samtale med en psykolog. Samtalen foregår via telefon eller video og har til formål at sikre, at forløbet passer til dig. Det vil tage ca. 30 minutter og er helt gratis:) 
+			</p>
+		<% end %>
+
+	</div>
+</div>

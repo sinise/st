@@ -1,0 +1,17 @@
+
+<div class="tabbable">
+  <ul class="nav nav-tabs" id="admin_client_view_tabs">
+    <li class="active"><a href="#tab_stressed_clients" data-toggle="tab">Ny Klient</a></li>
+    <li><a href="#tab_clients_in_treatment" data-toggle="tab">In treatment</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_stressed_clients">
+      <%= render "admins/clients/stressed_clients" %>
+    </div>
+    <div class="tab-pane" id="tab_clients_in_treatment">
+      <%= render "admins/clients/clients_in_treatment" %>
+    </div>    
+  </div>
+</div>
+

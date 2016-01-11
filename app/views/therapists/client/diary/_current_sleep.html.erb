@@ -1,0 +1,24 @@
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Søvn</h3>
+  </div>
+  <div class="panel-body">
+
+		<% sleep = @current_diary.sleep || Diaries::Sleep.new %>
+		<table class="table table-panel">
+			<thead>
+				<th class="cell-1st">Varighed</th>	
+				<th class="cell-2nd">Søvnkvalitet</th>	
+				<th class="cell-3rd">Kommentar</th>	
+			</thead>
+			<tbody>
+				<tr>
+					<td><%= sleep.hours_str || '--' %></td>
+					<td><%= sleep.quality || '--' %></td>
+					<td><%= sleep.description || '--' %></td>
+				</tr>	
+			</tbody>
+		</table>
+
+	</div>
+</div>

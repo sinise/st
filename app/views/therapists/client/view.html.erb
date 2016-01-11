@@ -1,0 +1,128 @@
+<%= render "therapists/client/client_info" %>
+
+<div class="tabbable">
+  <ul class="nav nav-tabs" id="client_view_tabs">
+    <li class="active"><a href="#tab_diray" data-toggle="tab">Dagbog</a></li>
+    <li><a href="#tab_journal" data-toggle="tab">Journal</a></li>
+    <li><a href="#tab_stresstest" data-toggle="tab">Stresstest</a></li>
+    <li><a href="#tab_assignment" data-toggle="tab">Opgaver</a></li>
+    <li><a href="#tab_article" data-toggle="tab">Article</a></li>
+    <li><a href="#tab_appointment" data-toggle="tab">Appointment</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab_diray">
+      <%= render "therapists/client/diary/diary" %>
+    </div>
+    <div class="tab-pane" id="tab_journal">
+      <%= render "therapists/client/journals" %>
+    </div>
+    <div class="tab-pane" id="tab_stresstest">
+      <%= render "therapists/client/stress_test" %>
+    </div>
+		<div class="tab-pane" id="tab_assignment">
+      <%= render "therapists/client/assignments" %>
+    </div>
+    <div class="tab-pane" id="tab_article">
+      
+    </div>
+    <div class="tab-pane" id="tab_appointment">
+      
+    </div>
+    
+  </div>
+</div>
+
+<script>
+    $('#client_view_tabs a').click(function (e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
+    // store the currently selected tab in the hash value
+    $("ul.nav-tabs > li > a").on("shown.bs.tab", function (e) {
+        var id = $(e.target).attr("href").substr(1);
+        window.location.hash = id;
+    });
+
+    // on load of the page: switch to the currently selected tab
+    var hash = window.location.hash;
+    $('#client_view_tabs a[href="' + hash + '"]').tab('show');
+</script>
+
+
+<script>
+var ready = function() {
+  $('textarea').autosize();
+}
+
+$(document).ready(ready);
+$(document).on('page:load', ready);
+</script>
+
+<script src="https://www.google.com/jsapi"></script>
+<script>
+	google.load('visualization', '1', {'packages':['corechart']});
+	google.setOnLoadCallback(drawChart);
+
+	function drawChart() {
+		$.ajax({
+			url: '/clients/<%= @client._id %>/stresses.json',
+			dataType: 'json',
+			async: true
+		})
+		.done(function(jsonData){
+
+			var dataRows = [];
+			$.each(jsonData, function(i, elm) {
+				dataRows.push(dataRow(elm.date, 'kl. 10', elm.level_1));
+				dataRows.push(dataRow(elm.date, 'kl. 14', elm.level_2));
+				dataRows.push(dataRow(elm.date, 'kl. 18', elm.level_3));
+			});
+
+
+			var data = new google.visualization.DataTable({
+				"cols": [
+				{"id":"date","label":"Dato","pattern":"","type":"string"},
+				{"id":"stress","label":"Stress niveau","pattern":"","type":"number"}
+				],
+				"rows": dataRows
+			});
+
+      var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+      chart.draw(data, {
+      	height: 60,
+      	pointSize: 3,
+      	width: '100%',
+      	theme: 'maximized',
+      	legend: {
+      		position: 'none'
+      	},
+      	hAxis: {
+      		maxValue: 10,
+      		textPosition: 'none'
+      	},
+      	vAxis: {
+      		ticks: [2,4,6,8,10],
+      		gridlines: {
+      			color: "#ffffff"
+      		}
+      	}
+      });
+    });
+	}
+
+function dataRow(date, time, stress_level) {
+	return {"c": [
+	{"v": date, "f": "Dato: " + parseDate(date) + ' ' + time},
+	{"v": (isNaN(stress_level) ? 0 : stress_level), "f": null }
+	]};
+}
+
+function parseDate(date) {
+	var y = date.substring(0,4);
+	var m = date.substring(5,7);
+	var d = date.substring(8,10);
+	return (d + '/' + m + '/' + y);
+}
+</script>

@@ -1,0 +1,62 @@
+<%= form_for(@current_diary, method: 'put',
+		url: '/diaries/'<< @current_diary._id \
+		     << '?date=' << @current_diary.date.to_s, :html =>{ }) do |f| %>
+
+	<%= render partial: "clients/diary/current_stress", locals: {:f => f} %>
+	<%= render partial: "clients/diary/current_sleep", locals: {:f => f} %>
+	<%= render partial: "clients/diary/current_exercise", locals: {:f => f} %>
+
+	
+	<div class="box box-diary hide">
+		<h3>Dagbog <small>Fortæl hvordan din dag er gået.</small></h3>
+
+		<div class="form-group">
+			<%= f.text_area :diary, { :class => "form-control", :placeholder => 'Beskriv kort din dag.', :autofocus => '1'} %>
+		</div>	
+	</div>
+
+	<div class="form-actions">
+		<%= f.submit "Gem", :class => "btn btn-primary btn-lg" %>
+	</div>
+
+	<%= f.hidden_field :date %>
+
+<% end %>
+
+
+
+<% if @current_diary.comments.any? %>
+	<div class="diary-comments">
+		<h4>Kommentarer (<%= @current_diary.comments.count %>) <a name="comments"></a></h4> 
+		<ul>
+			<% @current_diary.comments.desc(:created).each do |c| %>
+				<li>
+					<p class="comment-text"><%= c.comment %></p>
+					<p class="comment-date">
+						Skrevet for <%= time_ago_in_words(c.created) %>
+
+						<% if c.user %>
+							<% if c.user.user_detail %>
+								af <%= c.user.user_detail.full_name %>
+							<% end %>
+						<% end %>
+
+						<% if c.therapist %>
+							<% if c.therapist.therapist_detail %>
+								af <%= c.therapist.therapist_detail.first_name + ' ' + c.therapist.therapist_detail.last_name %>
+							<% end %>
+						<% end %>
+					</p>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+
+
+<% else %>
+	
+	<br>
+
+<% end %>
+
+<%= render "clients/diary/comment_form" %>
